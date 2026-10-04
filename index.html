@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EventEase - Event Booking Portal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="#home" class="logo">Event<span>Ease</span></a>
+    <button id="menu-btn" class="menu-btn" type="button">Menu</button>
+    <ul id="nav-links" class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#events">Events</a></li>
+      <li><a href="#how">How it Works</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section id="home" class="hero">
+    <h1>Find. Book. Enjoy.</h1>
+    <p>Discover concerts, sports, tech meetups, workshops and cultural events near you, and book your tickets in a few clicks.</p>
+    <a href="#events" class="btn">Browse Events</a>
+  </section>
+
+  <!-- Events -->
+  <section id="events" class="section">
+    <h2>Upcoming Events</h2>
+    <p class="sub">Search, filter and pick your next experience</p>
+
+    <div class="filter-bar">
+      <input type="text" id="search" placeholder="Search by event name or venue...">
+      <div class="date-filter">
+        <label for="date-filter">Events from</label>
+        <input type="date" id="date-filter">
+        <button id="clear-date" class="btn-small" type="button">Clear</button>
+      </div>
+    </div>
+
+    <div class="category-buttons">
+      <button class="cat-btn active" data-category="all" type="button">All</button>
+      <button class="cat-btn" data-category="Music" type="button">Music</button>
+      <button class="cat-btn" data-category="Sports" type="button">Sports</button>
+      <button class="cat-btn" data-category="Technology" type="button">Technology</button>
+      <button class="cat-btn" data-category="Workshops" type="button">Workshops</button>
+      <button class="cat-btn" data-category="Cultural" type="button">Cultural</button>
+    </div>
+
+    <p id="result-count" class="result-count"></p>
+    <div id="event-grid" class="event-grid"></div>
+  </section>
+
+  <!-- How it works -->
+  <section id="how" class="section alt">
+    <h2>How It Works</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-no">1</div>
+        <h3>Find an event</h3>
+        <p>Search or filter by category and date.</p>
+      </div>
+      <div class="step">
+        <div class="step-no">2</div>
+        <h3>Select tickets</h3>
+        <p>Choose Regular or VIP tickets and see the total instantly.</p>
+      </div>
+      <div class="step">
+        <div class="step-no">3</div>
+        <h3>Get confirmation</h3>
+        <p>Enter your details and receive your booking ID.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="section">
+    <h2>Contact Us</h2>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <h3>Support</h3>
+        <p>support@eventease-demo.com<br>+91 98765 43210</p>
+      </div>
+      <div class="contact-card">
+        <h3>Office</h3>
+        <p>EventEase Pvt. Ltd.<br>18, Tech Park Road, Bengaluru - 560001</p>
+      </div>
+      <div class="contact-card">
+        <h3>Working Hours</h3>
+        <p>Monday to Saturday<br>9:00 AM to 7:00 PM</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 EventEase. All rights reserved.</p>
+    <button id="reset-btn" class="reset-btn" type="button">Reset demo bookings</button>
+  </footer>
+
+  <!-- Event details / booking popup -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-box">
+      <button id="modal-close" class="modal-close" type="button">&times;</button>
+
+      <!-- Step 1: details and tickets -->
+      <div id="step-details">
+        <img id="d-image" class="d-image" src="" alt="">
+        <div class="d-body">
+          <span id="d-category" class="tag"></span>
+          <h2 id="d-title"></h2>
+          <p id="d-desc" class="d-desc"></p>
+
+          <ul class="d-info">
+            <li><strong>Date:</strong> <span id="d-date"></span></li>
+            <li><strong>Time:</strong> <span id="d-time"></span></li>
+            <li><strong>Venue:</strong> <span id="d-venue"></span></li>
+            <li><strong>Seats left:</strong> <span id="d-seats"></span></li>
+          </ul>
+
+          <h3>Select Tickets</h3>
+          <div id="ticket-box">
+            <div class="ticket-row">
+              <div>
+                <strong>Regular</strong>
+                <span id="regular-price" class="ticket-price"></span>
+              </div>
+              <div class="qty">
+                <button type="button" data-type="regular" data-action="minus">-</button>
+                <span id="regular-qty">0</span>
+                <button type="button" data-type="regular" data-action="plus">+</button>
+              </div>
+            </div>
+            <div class="ticket-row">
+              <div>
+                <strong>VIP</strong>
+                <span id="vip-price" class="ticket-price"></span>
+              </div>
+              <div class="qty">
+                <button type="button" data-type="vip" data-action="minus">-</button>
+                <span id="vip-qty">0</span>
+                <button type="button" data-type="vip" data-action="plus">+</button>
+              </div>
+            </div>
+          </div>
+          <p class="note">Maximum 6 tickets per booking.</p>
+
+          <div class="price-box">
+            <p id="line-regular" class="hidden"><span id="line-regular-label"></span><span id="line-regular-amt"></span></p>
+            <p id="line-vip" class="hidden"><span id="line-vip-label"></span><span id="line-vip-amt"></span></p>
+            <p><span>Subtotal</span><span id="subtotal">₹0</span></p>
+            <p><span>Convenience fee (5%)</span><span id="fee">₹0</span></p>
+            <p class="total"><span>Total</span><span id="total">₹0</span></p>
+          </div>
+
+          <p class="error" id="ticket-error"></p>
+          <button id="to-form" class="btn full" type="button">Proceed to Book</button>
+        </div>
+      </div>
+
+      <!-- Step 2: booking form -->
+      <div id="step-form" class="d-body hidden">
+        <h2>Your Details</h2>
+        <p id="form-summary" class="summary"></p>
+
+        <form id="booking-form" novalidate>
+          <label for="bname">Full Name</label>
+          <input type="text" id="bname" placeholder="Enter your full name">
+          <p class="error" id="bname-error"></p>
+
+          <label for="bemail">Email</label>
+          <input type="email" id="bemail" placeholder="Enter your email">
+          <p class="error" id="bemail-error"></p>
+
+          <label for="bphone">Phone Number</label>
+          <input type="text" id="bphone" placeholder="10 digit mobile number" maxlength="10">
+          <p class="error" id="bphone-error"></p>
+
+          <div class="form-buttons">
+            <button type="button" id="back-btn" class="btn-outline">Back</button>
+            <button type="submit" class="btn">Confirm Booking</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Step 3: confirmation -->
+      <div id="step-confirm" class="d-body center hidden">
+        <div class="tick">&#10003;</div>
+        <h2>Booking Confirmed</h2>
+        <p class="sub">Your tickets have been booked successfully.</p>
+        <div id="confirm-details" class="confirm-details"></div>
+        <div class="form-buttons center-buttons">
+          <button type="button" id="print-btn" class="btn-outline">Print</button>
+          <button type="button" id="done-btn" class="btn">Done</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
